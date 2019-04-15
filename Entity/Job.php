@@ -215,7 +215,7 @@ class Job
         $this->args = $args;
         $this->state = $confirmed ? self::STATE_PENDING : self::STATE_NEW;
         $this->queue = $queue;
-        $this->priority = $priority * -1;
+        $this->setPriority($priority);
         $this->createdAt = new \DateTime();
         $this->executeAfter = new \DateTime();
         $this->executeAfter = $this->executeAfter->modify('-1 second');
@@ -265,6 +265,11 @@ class Job
     public function getPriority()
     {
         return $this->priority * -1;
+    }
+
+    public function setPriority(int $priority)
+    {
+        $this->priority = $priority * -1;
     }
 
     public function isInFinalState()
